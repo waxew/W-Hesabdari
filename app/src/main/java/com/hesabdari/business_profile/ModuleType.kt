@@ -1,15 +1,17 @@
 /*
+================================================
 نام فایل:
 ModuleType.kt
 
 وظیفه:
-تعریف قابلیت های دارای منطق و Workflow در سیستم.
+تعریف قابلیت هایی که دارای منطق، فرآیند و Workflow هستند.
 
 ارتباط:
 Business Profile مشخص می کند کدام Module فعال باشد.
 
 نکات توسعه:
-هر قابلیت جدید با منطق مستقل باید Module باشد، نه Attribute.
+اطلاعات توصیفی باید Attribute Schema باشند و نباید Module شوند.
+================================================
 */
 
 package com.hesabdari.business_profile
@@ -22,9 +24,16 @@ enum class ModuleType {
     INVENTORY,
     CUSTOMER,
     SUPPLIER,
+    PRODUCT,
+    SALES,
+    PURCHASE,
     PRODUCTION,
+    COST_CALCULATION,
     RESERVATION,
     DELIVERY,
     REPAIR,
-    WARRANTY
+    WARRANTY,
+    IMEI,
+    ONLINE_ORDER,
+    CRM
 }
