@@ -1,26 +1,16 @@
-/*
-================================================
-نام فایل:
-TransactionDao.kt
-
-وظیفه:
-مدیریت دسترسی دیتابیس تراکنش های مالی.
-
-ارتباط:
-TransactionEntity -> DAO -> Repository
-
-نکات توسعه:
-فقط عملیات ذخیره و بازیابی داده در این لایه انجام می شود.
-================================================
-*/
-
 package com.hesabdari.data.database.dao
 
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.hesabdari.data.database.entity.TransactionEntity
 
+@Dao
 interface TransactionDao {
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(transaction: TransactionEntity)
 
+    @Query("SELECT * FROM transactions WHERE id = :id LIMIT 1")
     suspend fun getById(id: Long): TransactionEntity?
 }
