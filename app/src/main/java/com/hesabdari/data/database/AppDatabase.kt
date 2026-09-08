@@ -1,20 +1,3 @@
-/*
-================================================
-نام فایل:
-AppDatabase.kt
-
-وظیفه:
-تعریف پایگاه داده اصلی برنامه با معماری Room.
-
-ارتباط:
-Entity ها و DAO ها از این کلاس استفاده می‌کنند.
-
-نکات توسعه:
-این فایل فقط زیرساخت ذخیره‌سازی است و نباید شامل منطق کسب‌وکار باشد.
-منطق حسابداری در Domain و UseCase قرار دارد.
-================================================
-*/
-
 package com.hesabdari.data.database
 
 import androidx.room.Database
@@ -28,6 +11,7 @@ import com.hesabdari.data.database.entity.InvoiceEntity
 import com.hesabdari.data.database.entity.PartyEntity
 import com.hesabdari.data.database.entity.TransactionEntity
 
+/** پایگاه داده اصلی حسابداری. */
 @Database(
     entities = [
         AccountEntity::class,
@@ -36,15 +20,11 @@ import com.hesabdari.data.database.entity.TransactionEntity
         PartyEntity::class
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun accountDao(): AccountDao
-
     abstract fun transactionDao(): TransactionDao
-
     abstract fun invoiceDao(): InvoiceDao
-
     abstract fun partyDao(): PartyDao
 }
