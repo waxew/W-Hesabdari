@@ -1,25 +1,12 @@
-/*
-================================================
-نام فایل:
-InvoiceEntity.kt
-
-وظیفه:
-مدل ذخیره سازی فاکتور در Database.
-
-ارتباط:
-Domain Invoice <-> Database Entity
-
-نکات توسعه:
-قالب و قوانین اختصاصی کسب و کار باید خارج از این Entity باشد.
-================================================
-*/
-
 package com.hesabdari.data.database.entity
 
-/**
- * Entity عمومی فاکتور.
- */
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+/** مدل ذخیره‌سازی فاکتور در Room. */
+@Entity(tableName = "invoices")
 data class InvoiceEntity(
+    @PrimaryKey
     val id: Long,
     val number: String,
     val totalAmount: Double,
