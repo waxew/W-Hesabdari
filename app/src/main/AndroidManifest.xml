@@ -2,7 +2,7 @@
 
     <application
         android:name=".HesabdariApplication"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.Hesabdari"
         android:label="Hesabdari">
 
         <activity
