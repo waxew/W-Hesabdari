@@ -1,18 +1,15 @@
-/*
-================================================
-نام فایل:
-RepositoryModule.kt
-وظیفه:
-آماده سازی تزریق Repository ها
-ارتباط:
-Repository Interface -> Repository Implementation
-نکات توسعه:
-این بخش Core را از جزئیات Data Layer جدا نگه می‌دارد.
-================================================
-*/
-
 package com.hesabdari.di
 
-object RepositoryModule {
-    // محل اتصال Interface و Implementation
-}
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+/**
+ * Repository dependency bindings.
+ *
+ * Repository implementations will be added here when data layer contracts
+ * are finalized. The project keeps all repositories inside this repository.
+ */
+@Module
+@InstallIn(SingletonComponent::class)
+object RepositoryModule
