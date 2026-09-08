@@ -10,20 +10,15 @@ import kotlinx.coroutines.launch
 class AccountingDashboardViewModel(
     private val dashboardUseCase: AccountingDashboardUseCase
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(AccountingState())
     val state: StateFlow<AccountingState> = _state.asStateFlow()
 
-    init {
-        loadDashboard()
-    }
+    init { loadDashboard() }
 
     fun onEvent(event: AccountingEvent) {
         when (event) {
             AccountingEvent.Refresh -> loadDashboard()
-            is AccountingEvent.OpenTransaction -> {
-                // Navigation will be handled by the UI layer
-            }
+            is AccountingEvent.OpenTransaction -> Unit
         }
     }
 
@@ -31,8 +26,7 @@ class AccountingDashboardViewModel(
         viewModelScope.launch {
             try {
                 _state.value = _state.value.copy(isLoading = true, errorMessage = null)
-                val dashboard = dashboardUseCase.getDashboard()
-                _state.value = dashboard
+                _state.value = dashboardUseCase.loadDashboard()
             } catch (exception: Exception) {
                 _state.value = _state.value.copy(
                     isLoading = false,
