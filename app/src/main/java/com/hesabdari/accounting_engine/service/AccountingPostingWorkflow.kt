@@ -9,6 +9,8 @@ class AccountingPostingWorkflow(
     private val ledgerUpdateService: LedgerUpdateService
 ) {
     fun post(transaction: Transaction) {
+        // Transaction validation and journal generation are handled by services.
+        // Keep workflow independent from business profiles.
         postingService.createJournalEntries(transaction)
     }
 }
