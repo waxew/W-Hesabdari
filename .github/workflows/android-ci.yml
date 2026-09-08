@@ -2,6 +2,12 @@ name: Android CI
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: android-ci-main
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -23,4 +29,19 @@ jobs:
           gradle-version: '8.7'
 
       - name: Compile Debug
-        run: gradle assembleDebug --stacktrace
+        run: gradle clean assembleDebug --stacktrace
+
+      - name: Package Debug APK
+        if: success()
+        run: |
+          mkdir -p build-artifacts
+          cp app/build/outputs/apk/debug/*.apk build-artifacts/W-Hesabdari-v1.0.0-debug.apk
+          sha256sum build-artifacts/W-Hesabdari-v1.0.0-debug.apk > build-artifacts/W-Hesabdari-v1.0.0-debug.sha256
+
+      - name: Upload Debug APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: W-Hesabdari-v1.0.0-debug
+          path: build-artifacts/
+          if-no-files-found: error
