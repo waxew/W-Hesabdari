@@ -7,7 +7,13 @@ import androidx.compose.runtime.Composable
 fun LedgerEntriesList(entries: List<String>) {
     Column {
         entries.forEach { entry ->
-            LedgerEntryItem(entry = entry)
+            LedgerEntryItem(
+                title = entry,
+                date = "",
+                debit = 0.0,
+                credit = 0.0,
+                balance = 0.0
+            )
         }
     }
 }
