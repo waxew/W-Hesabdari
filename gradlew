@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# Gradle wrapper entry point
-# Generated wrapper script placeholder.
+##############################################################################
+##
+##  Gradle start up script for POSIX generated projects.
+##
+##############################################################################
 
-exec gradle "$@"
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+exec "$APP_HOME/gradlew" "$@"
