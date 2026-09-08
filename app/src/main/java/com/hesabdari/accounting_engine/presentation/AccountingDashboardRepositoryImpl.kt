@@ -5,14 +5,8 @@ import com.hesabdari.accounting_engine.data.AccountingRepository
 class AccountingDashboardRepositoryImpl(
     private val accountingRepository: AccountingRepository
 ) : AccountingDashboardRepository {
-
-    override suspend fun getDashboardData(): AccountingState {
-        return AccountingState(
-            totalIncome = 0.0,
-            totalExpense = 0.0,
-            balance = 0.0,
-            transactionCount = 0,
-            isLoading = false
-        )
-    }
+    override suspend fun getTotalIncome(): Double = 0.0
+    override suspend fun getTotalExpense(): Double = 0.0
+    override suspend fun getBalance(): Double = 0.0
+    override suspend fun getTransactionCount(): Int = 0
 }
