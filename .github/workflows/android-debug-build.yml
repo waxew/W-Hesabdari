@@ -2,26 +2,45 @@ name: Android Debug APK
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - name: Setup Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: gradle clean assembleDebug --stacktrace
 
-      - name: Upload APK
+      - name: Rename Debug APK
+        run: |
+          mkdir -p build-artifacts
+          cp app/build/outputs/apk/debug/*.apk build-artifacts/W-Hesabdari-v1.0.0-debug.apk
+
+      - name: Generate SHA-256
+        run: sha256sum build-artifacts/W-Hesabdari-v1.0.0-debug.apk > build-artifacts/W-Hesabdari-v1.0.0-debug.sha256
+
+      - name: Upload Debug Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: W-Hesabdari-v1-debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: W-Hesabdari-v1.0.0-debug
+          path: |
+            build-artifacts/W-Hesabdari-v1.0.0-debug.apk
+            build-artifacts/W-Hesabdari-v1.0.0-debug.sha256
+          if-no-files-found: error
