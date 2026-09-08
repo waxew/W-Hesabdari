@@ -1,14 +1,12 @@
 package com.hesabdari.accounting_engine.financial_reports.cash_flow
 
-/**
- * Implementation layer for cash flow report data access.
- *
- * This class connects financial report calculations with accounting core data.
- */
+/** پیاده‌سازی اولیه گزارش جریان نقدی. */
 class CashFlowRepositoryImpl : CashFlowRepository {
-
-    override suspend fun getCashFlowReport(): CashFlowState {
-        return CashFlowState(
+    override suspend fun getCashFlowReport(
+        startDate: Long,
+        endDate: Long
+    ): Result<CashFlowState> = Result.success(
+        CashFlowState(
             isLoading = false,
             operatingCashFlow = 0.0,
             investingCashFlow = 0.0,
@@ -16,5 +14,5 @@ class CashFlowRepositoryImpl : CashFlowRepository {
             netCashChange = 0.0,
             errorMessage = null
         )
-    }
+    )
 }
