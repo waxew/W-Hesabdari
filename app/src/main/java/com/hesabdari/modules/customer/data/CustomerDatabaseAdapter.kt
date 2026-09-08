@@ -12,6 +12,7 @@ CustomerRepositoryImpl -> Adapter -> CustomerDao
 نکات توسعه:
 این فایل نباید شامل منطق کسب و کار اختصاصی باشد.
 اطلاعات مربوط به نوع کسب و کار باید از Business Profile دریافت شود.
+این لایه مسئول هماهنگی داده بین Domain و Storage است.
 ================================================
 */
 
@@ -20,5 +21,7 @@ package com.hesabdari.modules.customer.data
 class CustomerDatabaseAdapter(
     private val customerDao: CustomerDao
 ) {
-    // عملیات دیتابیس مشتری در این لایه قرار می گیرد.
+    fun getDao(): CustomerDao {
+        return customerDao
+    }
 }
