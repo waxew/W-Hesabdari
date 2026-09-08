@@ -1,25 +1,12 @@
-/*
-================================================
-نام فایل:
-TransactionEntity.kt
-
-وظیفه:
-مدل ذخیره سازی تراکنش مالی.
-
-ارتباط:
-Domain Transaction <-> Database Entity
-
-نکات توسعه:
-تمام Business Logic باید خارج از Entity باقی بماند.
-================================================
-*/
-
 package com.hesabdari.data.database.entity
 
-/**
- * Entity عمومی تراکنش مالی.
- */
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+/** مدل ذخیره‌سازی تراکنش مالی در Room. */
+@Entity(tableName = "transactions")
 data class TransactionEntity(
+    @PrimaryKey
     val id: Long,
     val accountId: Long,
     val amount: Double,
