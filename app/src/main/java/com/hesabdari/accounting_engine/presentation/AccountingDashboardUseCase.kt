@@ -1,18 +1,13 @@
 package com.hesabdari.accounting_engine.presentation
 
-import com.hesabdari.accounting_engine.domain.AccountingUseCase
-
 class AccountingDashboardUseCase(
-    private val accountingUseCase: AccountingUseCase
+    private val repository: AccountingDashboardRepository
 ) {
-
-    suspend fun loadDashboard(): AccountingState {
-        return AccountingState(
-            isLoading = false,
-            totalIncome = 0.0,
-            totalExpense = 0.0,
-            balance = 0.0,
-            transactionCount = 0
-        )
-    }
+    suspend fun loadDashboard(): AccountingState = AccountingState(
+        isLoading = false,
+        totalIncome = repository.getTotalIncome().toLong(),
+        totalExpense = repository.getTotalExpense().toLong(),
+        balance = repository.getBalance().toLong(),
+        transactionCount = repository.getTransactionCount()
+    )
 }
