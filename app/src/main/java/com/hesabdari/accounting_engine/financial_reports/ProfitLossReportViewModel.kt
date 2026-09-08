@@ -6,15 +6,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class ProfitLossReportViewModel : ViewModel() {
-
     private val _state = MutableStateFlow(ProfitLossReportState())
     val state: StateFlow<ProfitLossReportState> = _state.asStateFlow()
 
     fun loadReport(startDate: Long, endDate: Long) {
         _state.value = _state.value.copy(
             isLoading = true,
-            startDate = startDate,
-            endDate = endDate,
             errorMessage = null
         )
     }
