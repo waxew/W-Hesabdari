@@ -7,10 +7,11 @@ CustomerRepositoryImpl.kt
 پیاده سازی Repository مشتری.
 
 ارتباط:
-UseCase -> Repository -> DAO -> Database
+UseCase -> Repository -> Database Adapter -> DAO -> Database
 
 نکات توسعه:
-تبدیل Entity به Domain Model در این لایه انجام می‌شود.
+این لایه نباید منطق کسب و کار اختصاصی داشته باشد.
+تبدیل Entity و Domain Model در همین لایه انجام می‌شود.
 ================================================
 */
 
@@ -19,28 +20,18 @@ package com.hesabdari.modules.customer.data
 import com.hesabdari.modules.customer.domain.Customer
 
 class CustomerRepositoryImpl(
-    private val dao: CustomerDao
-) : com.hesabdari.modules.customer.data.CustomerRepository {
+    private val databaseAdapter: CustomerDatabaseAdapter
+) : CustomerRepository {
 
     override suspend fun create(customer: Customer) {
-        dao.insert(
-            CustomerEntity(
-                id = customer.id,
-                name = customer.name,
-                phone = customer.phone,
-                email = customer.email
-            )
+        databaseAdapter.getDao().insert(
+            CustomerEntityMapper.toEntity(customer)
         )
     }
 
     override suspend fun getAll(): List<Customer> {
-        return dao.getAll().map {
-            Customer(
-                id = it.id,
-                name = it.name,
-                phone = it.phone,
-                email = it.email
-            )
+        return databaseAdapter.getDao().getAll().map {
+            CustomerEntityMapper.toDomain(it)
         }
     }
 }
